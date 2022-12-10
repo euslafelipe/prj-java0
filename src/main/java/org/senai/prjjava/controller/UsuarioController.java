@@ -1,7 +1,6 @@
 package org.senai.prjjava.controller;
 
 import java.util.Optional;
-import javax.websocket.server.PathParam;
 
 import org.senai.prjjava.entity.Usuario;
 import org.senai.prjjava.repository.UsuarioRepository;
@@ -15,8 +14,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+// http://localhost:8080/api/usuario/add?nome=luiz&email=luiz@gmail.com -- nesse exemplo são usadas váriaveis de parametro chave=valor
 
 @Controller
 @RequestMapping(path = "/api/usuario")
@@ -33,18 +33,18 @@ public class UsuarioController {
     }
 
     @GetMapping("/")
-    public @ResponseBody Iterable<Usuario> buscarUsuarios(){
+    public @ResponseBody Iterable<Usuario> buscarUsuarios() {
         return uRepository.findAll();
     }
-
+    
+    // http://localhost:8080/api/usuario/2 - nesse exemlo é usado uma variável de path(caminho)
     @GetMapping("/{id}")
     public @ResponseBody Optional<Usuario> buscarUsuario(@PathVariable Integer id){
         return uRepository.findById(id);
-
     }
 
     @PutMapping("/")
-    public @ResponseBody Usuario atualizar(@RequestBody Usuario objU) {
+    public @ResponseBody Usuario atualizar(@RequestBody Usuario objU){
         uRepository.save(objU);
         return objU;
     }
@@ -52,7 +52,7 @@ public class UsuarioController {
     @DeleteMapping("/{id}")
     public @ResponseBody String apagar(@PathVariable Integer id){
         uRepository.deleteById(id);
-        return "ok ao apagar!";
+        return "Ok ao apagar!";
     }
 
 }
